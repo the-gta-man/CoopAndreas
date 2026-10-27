@@ -3,6 +3,8 @@
 
 :MUSIC3
 script_name 'MUSIC3'
+Coop.EnableSyncingThisScript()
+Coop.AddChatMessage("{ffff00}[CoopAndreas]{ffffff} Only the host can drive the car with Madd Dogg's manager.")
 gosub @MUSIC3_47
 if 
   has_deatharrest_been_executed 
@@ -16,6 +18,7 @@ terminate_this_script
 :MUSIC3_47
 $onmission = 1
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('STRAP3')
 if 
   $onmission == 0
@@ -224,11 +227,26 @@ Path.MarkRoadNodeAsDontWander(794.8, -1033.6, 23.7)
 Path.MarkRoadNodeAsDontWander(1311.1, -701.7, 91.7)
 Path.MarkRoadNodeAsDontWander(2838.7, -1024.2, 21.5)
 Text.PrintNow('STP3_01', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_01', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('STP3_02', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_02', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 World.ClearArea(1, 794.6, -1597.1, 12.5, 1.0)
 Streaming.LoadScene(794.6, -1597.1, 12.5)
 Char.SetCoordinates($scplayer, 794.6, -1597.1, 12.5)
 Char.SetHeading($scplayer, 45.0)
+gosub @MUSIC3_COOP_WARP_GUESTS
 Clock.SetTimeOfDay(16, 0)
 Camera.SetBehindPlayer
 Camera.RestoreJumpcut
@@ -267,6 +285,7 @@ is_ps2_keyboard_key_pressed 81
 goto_if_false @MUSIC3_2442
 Char.SetCoordinates($scplayer, 1179.5, -920.3, 42.2)
 Char.SetHeading($scplayer, 99.7)
+gosub @MUSIC3_COOP_WARP_GUESTS
 
 :MUSIC3_2442
 if 
@@ -286,6 +305,13 @@ if
   Char.IsInCar(76@, 73@)
 goto_if_false @MUSIC3_2572
 Text.Print('STP3_19', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_19', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_2572
 goto @MUSIC3_2586
@@ -341,6 +367,13 @@ if
 goto_if_false @MUSIC3_2865
 Text.ClearThisPrint('STP3_19')
 Text.Print('STP3_11', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_11', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 3
 goto @MUSIC3_2872
 
@@ -540,6 +573,13 @@ if
   Car.Locate2D(73@, 0, 1316.4, -1136.5, 5.0, 5.0)
 goto_if_false @MUSIC3_4106
 Text.PrintNow('STP3_03', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_03', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 150@ = 1
 122@ = 9
 
@@ -623,6 +663,13 @@ Blip.Remove(113@)
 113@ = Blip.AddForCoord(1306.4, -1137.5, 22.5)
 Text.ClearThisPrint('STP3_11')
 Text.Print('STP3_33', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_33', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Streaming.MarkModelAsNoLongerNeeded(330)
 175@ = 0
 123@ = 0
@@ -636,6 +683,7 @@ if
 is_ps2_keyboard_key_pressed 81
 goto_if_false @MUSIC3_4601
 Char.SetCoordinates($scplayer, 1306.4, -1137.5, 22.5)
+gosub @MUSIC3_COOP_WARP_GUESTS
 Car.SetHeading(73@, 90.0)
 
 :MUSIC3_4601
@@ -663,6 +711,13 @@ goto_if_false @MUSIC3_4773
 Blip.Remove($spray_shop2)
 $spray_shop2 = Blip.AddSpriteForCoord(63, 488.0, -1734.0, 34.4)
 Text.Print('STP3_22', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_22', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 1
 
 :MUSIC3_4773
@@ -690,6 +745,13 @@ if
   159@ > 4000
 goto_if_false @MUSIC3_4959
 Text.Print('STP3_33', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_33', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 160@ = 1
 
 :MUSIC3_4959
@@ -710,6 +772,13 @@ if
   360.0 >= 157@
 goto_if_false @MUSIC3_5110
 Text.PrintNow('STP3_25', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_25', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_5110
 if 
@@ -719,6 +788,13 @@ if
   157@ >= 0.0
 goto_if_false @MUSIC3_5168
 Text.PrintNow('STP3_25', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_25', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_5168
 if 
@@ -741,6 +817,13 @@ if or
   Car.IsOnScreen(74@)
 goto_if_false @MUSIC3_5327
 Text.PrintNow('STP3_25', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_25', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 161@ = 1
 
 :MUSIC3_5327
@@ -753,6 +836,13 @@ Blip.Remove($spray_shop2)
 $spray_shop2 = Blip.AddSpriteForCoord(63, 488.0, -1734.0, 34.4)
 Text.ClearPrints
 Text.Print('STP3_22', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_22', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 123@ = 0
 
 :MUSIC3_5408
@@ -817,6 +907,7 @@ if
 goto_if_false @MUSIC3_5766
 World.ClearArea(1, 1247.1, -1156.0, 22.7, 1.0)
 Char.SetCoordinates($scplayer, 1247.1, -1156.0, 22.7)
+gosub @MUSIC3_COOP_WARP_GUESTS
 
 :MUSIC3_5766
 Streaming.LoadScene(1305.5, -1131.7, 22.6)
@@ -881,10 +972,24 @@ if
   150@ == 0
 goto_if_false @MUSIC3_6446
 Text.PrintNow('STP3_20', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_20', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_6462
 
 :MUSIC3_6446
 Text.PrintNow('STP3_21', 8000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_21', 8000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_6462
 Camera.DoFade(1, 500)
@@ -1010,10 +1115,24 @@ if
   150@ == 0
 goto_if_false @MUSIC3_7152
 Text.PrintNow('STP3_20', 5500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_20', 5500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_7168
 
 :MUSIC3_7152
 Text.PrintNow('STP3_21', 5500, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_21', 5500, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_7168
 Camera.DoFade(1, 500)
@@ -1425,6 +1544,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.Print('STP3_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 if 
   124@ == 1
 goto_if_false @MUSIC3_9708
@@ -1499,6 +1625,13 @@ if
   Car.Locate2D(73@, 0, 225@, 226@, 9.0, 9.0)
 goto_if_false @MUSIC3_10120
 Text.PrintNow('STP3_32', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_32', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_10122
 
 :MUSIC3_10120
@@ -1528,6 +1661,13 @@ if
 goto_if_false @MUSIC3_10277
 Text.ClearPrints
 Text.PrintNow('STP3_12', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_12', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_15492
 
 :MUSIC3_10277
@@ -1541,6 +1681,13 @@ if
 goto_if_false @MUSIC3_10352
 Text.ClearPrints
 Text.PrintNow('STP3_24', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_24', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_15492
 
 :MUSIC3_10352
@@ -1927,7 +2074,21 @@ Sequence.Clear(232@)
 Char.ClearLookAt($scplayer)
 Text.ClearPrints
 Text.Print('STP3_08', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_08', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Text.Print('STP3_09', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_09', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Blip.Remove(113@)
 113@ = Blip.AddForCoord(836.9, -2041.5, 11.8)
 DecisionMakerChar.AddEventResponse(233@, 13, 917, 0.0, 100.0, 0.0, 0.0, False, True)
@@ -2074,6 +2235,13 @@ if
   Char.IsInArea3D($scplayer, 0, 853.7, -1810.1, 10.0, 818.5, -1874.0, 20.0)
 goto_if_false @MUSIC3_13833
 Text.PrintNow('STP3_35', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_35', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 163@ = 1
 
 :MUSIC3_13833
@@ -2088,6 +2256,13 @@ if
   Char.IsInArea3D($scplayer, 0, 820.0, -2004.0, 10.0, 852.4, -2068.0, 20.0)
 goto_if_false @MUSIC3_13951
 Text.PrintNow('STP3_34', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_34', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 163@ = 2
 
 :MUSIC3_13951
@@ -2203,6 +2378,13 @@ if
 goto_if_false @MUSIC3_14585
 Text.ClearPrints
 Text.PrintNow('STP3_31', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_31', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_15492
 
 :MUSIC3_14585
@@ -2218,6 +2400,13 @@ goto_if_false @MUSIC3_14684
 Task.LeaveCarAndFlee(102@, 73@, 2316.4, -1519.2, 24.3)
 Text.ClearPrints
 Text.PrintNow('STP3_18', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_18', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC3_15492
 
 :MUSIC3_14684
@@ -2286,6 +2475,13 @@ goto_if_false @MUSIC3_14963
 
 :MUSIC3_14963
 Text.PrintNow('STP3_26', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_26', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 123@ = 1
 
 :MUSIC3_14986
@@ -2396,6 +2592,13 @@ if
   $minutes > 30
 goto_if_false @MUSIC3_15478
 Text.Print('STP3_28', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_28', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 162@ = 1
 
 :MUSIC3_15478
@@ -2498,6 +2701,13 @@ if
 goto_if_false @MUSIC3_16232
 Text.ClearPrints
 Text.PrintNow('STP3_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16232
@@ -2509,6 +2719,13 @@ if
 goto_if_false @MUSIC3_16291
 Text.ClearPrints
 Text.PrintNow('STP3_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16291
@@ -2517,6 +2734,13 @@ if
 goto_if_false @MUSIC3_16332
 Text.ClearPrints
 Text.PrintNow('STP3_10', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_10', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16332
@@ -2531,6 +2755,13 @@ if
 goto_if_false @MUSIC3_16409
 Text.ClearPrints
 Text.PrintNow('STP3_16', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_16', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16409
@@ -2545,6 +2776,13 @@ if
 goto_if_false @MUSIC3_16486
 Text.ClearPrints
 Text.PrintNow('STP3_17', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_17', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16486
@@ -2553,6 +2791,13 @@ if
 goto_if_false @MUSIC3_16527
 Text.ClearPrints
 Text.PrintNow('STP3_17', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_17', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_16527
@@ -3092,6 +3337,13 @@ if
 goto_if_false @MUSIC3_20845
 113@ = Blip.AddForCoord(1306.4, -1137.5, 22.5)
 Text.Print('STP3_33', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_33', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_20845
 142@ = 1
@@ -3111,6 +3363,13 @@ if
 goto_if_false @MUSIC3_20955
 Text.ClearThisPrint('STP3_33')
 Text.Print('STP3_13', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_13', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 
 :MUSIC3_20955
 142@ = 0
@@ -3185,6 +3444,13 @@ if
   0 > 146@
 goto_if_false @MUSIC3_21400
 Text.PrintNow('STP3_07', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_07', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 125@ = 1
 
 :MUSIC3_21400
@@ -3206,6 +3472,13 @@ if
   not Car.IsHealthGreater(72@, 950)
 goto_if_false @MUSIC3_21498
 Text.PrintNow('STP3_30', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_30', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 1
 
 :MUSIC3_21498
@@ -3213,6 +3486,13 @@ if
   not Car.IsHealthGreater(74@, 950)
 goto_if_false @MUSIC3_21540
 Text.PrintNow('STP3_30', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP3_30', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 1
 
 :MUSIC3_21540
@@ -3224,6 +3504,13 @@ if
 goto_if_false @MUSIC3_21602
 Text.ClearPrints
 Text.Print('STP3_23', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_23', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 2
 
 :MUSIC3_21602
@@ -3232,6 +3519,13 @@ if
 goto_if_false @MUSIC3_21646
 Text.ClearPrints
 Text.Print('STP3_23', 4000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP3_23', 4000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 175@ = 2
 
 :MUSIC3_21646
@@ -4182,3 +4476,16 @@ Text.ClearThisPrint(178@(176@,14s))
 :MUSIC3_26940
 return 
 
+
+
+:MUSIC3_COOP_WARP_GUESTS
+// put every network player outside (area 0) next to the host after a scripted teleport
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
+return
