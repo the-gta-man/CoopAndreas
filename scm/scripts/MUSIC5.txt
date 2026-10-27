@@ -3,6 +3,7 @@
 
 :MUSIC5
 script_name 'MUSIC5'
+Coop.EnableSyncingThisScript()
 gosub @MUSIC5_47
 if 
   has_deatharrest_been_executed 
@@ -16,6 +17,7 @@ terminate_this_script
 :MUSIC5_47
 $onmission = 1
 Stat.RegisterMissionGiven
+$NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2] = Coop.CollectNetworkPlayersForTheMission()
 Text.LoadMissionText('STRAP4')
 Text.ClearPrints
 wait 0
@@ -385,6 +387,7 @@ Streaming.RequestCarRecording(22)
 Streaming.RequestCarRecording(23)
 World.ClearArea(1, 2492.4, -1632.0, 12.4, 1.0)
 Char.SetCoordinates($scplayer, 2492.4, -1632.0, 12.4)
+gosub @MUSIC5_COOP_WARP_GUESTS
 Camera.SetFixedPosition(2483.0, -1649.8, 12.5, 0.0, 0.0, 0.0)
 Camera.PointAtPoint(2494.3, -1650.3, 16.6, SwitchType.JumpCut)
 Game.ShutAllCharsUp(True)
@@ -988,6 +991,13 @@ if
   105@ == 0
 goto_if_false @MUSIC5_7215
 Text.Print('STP4_02', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_02', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = 1
 
 :MUSIC5_7215
@@ -1370,6 +1380,13 @@ if
   105@ == 0
 goto_if_false @MUSIC5_9575
 Text.Print('STP4_03', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_03', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 106@ = 1
 
 :MUSIC5_9575
@@ -1461,6 +1478,7 @@ if
 goto_if_false @MUSIC5_10058
 World.ClearArea(1, 2475.8, -1663.6, 12.3, 1.0)
 Char.SetCoordinates($scplayer, 2475.8, -1663.6, 12.3)
+gosub @MUSIC5_COOP_WARP_GUESTS
 
 :MUSIC5_10058
 if 
@@ -1842,6 +1860,13 @@ Camera.SetBehindPlayer
 Camera.RestoreJumpcut
 Player.SetControl($player1, True)
 Text.Print('STP4_04', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintForNetworkPlayer('STP4_04', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 Camera.DoFade(1, 500)
 
 :MUSIC5_13379
@@ -2131,6 +2156,7 @@ World.ClearArea(1, 2484.9, -1649.2, 12.5, 160.0)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2484.2, -1666.2, 12.3)
 Char.SetHeading($scplayer, 336.7)
+gosub @MUSIC5_COOP_WARP_GUESTS
 144@ = Sequence.Open()
 Task.GoStraightToCoord(-1, 2486.7, -1650.1, 12.3, MoveState.Walk, -1)
 Task.Pause(-1, 1000)
@@ -2256,6 +2282,7 @@ Streaming.UnloadSpecialCharacter(1)
 Char.ClearTasksImmediately($scplayer)
 Char.SetCoordinates($scplayer, 2486.6, -1649.9, 12.5)
 Char.SetHeading($scplayer, 177.8)
+gosub @MUSIC5_COOP_WARP_GUESTS
 Game.ShutAllCharsUp(False)
 Player.SetControl($player1, True)
 Hud.SwitchWidescreen(False)
@@ -2281,6 +2308,13 @@ if
 goto_if_false @MUSIC5_15857
 Text.ClearPrints
 Text.PrintNow('STP4_06', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_06', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 goto @MUSIC5_15871
 
 :MUSIC5_15857
@@ -2299,6 +2333,13 @@ Blip.Remove($strap_contact_blip)
 $strap_contact_blip = Blip.AddSpriteForContactPoint($strap_blip_icon, $strap2X, $strap2Y, $strap2Z)
 Camera.DoFade(1, 500)
 Text.PrintNow('STP4_07', 11000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_07', 11000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 $flag_strap_mission_counter += 1
 $strap4_mission_passed_once_flag = 1
 goto @MUSIC5_16038
@@ -2399,6 +2440,13 @@ if
 goto_if_false @MUSIC5_16443
 Text.ClearPrints
 Text.PrintNow('STP4_05', 7000, 1)
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Coop.PrintNowForNetworkPlayer('STP4_05', 7000, 1, $NETWORK_PLAYER[$temp_int])
+    end
+end
 83@ = 1
 
 :MUSIC5_16443
@@ -2817,3 +2865,16 @@ return
 //-------------Mission 35---------------
 // Originally: Race Tournament / 8-track / Dirt Track
 
+
+
+:MUSIC5_COOP_WARP_GUESTS
+// put every network player outside (area 0) next to the host after a scripted teleport
+for $temp_int = 0 to 2
+    if
+        Coop.IsNetworkPlayerActorValid($NETWORK_PLAYER[$temp_int])
+    then
+        Char.SetAreaVisible($NETWORK_PLAYER[$temp_int], 0)
+    end
+end
+Coop.TeleportPlayersToHostSafely($NETWORK_PLAYER[0], $NETWORK_PLAYER[1], $NETWORK_PLAYER[2])
+return
